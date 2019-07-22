@@ -1,0 +1,6 @@
+package io.cstham.oriontest.utils;
+
+public interface OnTabSelectListener {
+    void onTabSelect(int position);
+    void onTabReselect(int position);
+}
