@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-import io.netty.Adapter.HistoryAdapter;
+import io.cstham.oriontest.adapter.HistoryAdapter;
 
 
 public class HistoryRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {

@@ -1,7 +1,9 @@
-package io.cstham.oriontest;
+package io.cstham.oriontest.presenter;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import io.cstham.oriontest.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-import io.netty.Adapter.NewsAdapter;
+import io.cstham.oriontest.adapter.NewsAdapter;
 
 
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {

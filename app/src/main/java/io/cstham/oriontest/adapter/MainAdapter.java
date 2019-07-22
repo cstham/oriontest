@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import io.cstham.oriontest.DetailsActivity;
+import io.cstham.oriontest.presenter.DetailsActivity;
 import io.cstham.oriontest.R;
 import io.cstham.oriontest.entity.Record;
 
