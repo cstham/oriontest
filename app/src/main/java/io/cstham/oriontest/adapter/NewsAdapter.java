@@ -14,6 +14,7 @@ import java.util.List;
 import io.cstham.oriontest.presenter.DetailsActivity;
 import io.cstham.oriontest.R;
 import io.cstham.oriontest.entity.Record;
+import io.cstham.oriontest.router.DetailsRouter;
 
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
@@ -22,23 +23,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     private List<Record> newsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        //public TextView note;
-        //public TextView dot;
-        //public TextView timestamp;
 
         public RelativeLayout rowLayout, viewBackground;
         public TextView titleTxtView;
 
         public MyViewHolder(View view) {
             super(view);
-            //note = view.findViewById(R.id.note);
-            //dot = view.findViewById(R.id.dot);
-            //timestamp = view.findViewById(R.id.timestamp);
+
             rowLayout= view.findViewById(R.id.row1);
             viewBackground = view.findViewById(R.id.view_background);
             titleTxtView = view.findViewById(R.id.textView1);
-
-
         }
     }
 
@@ -60,33 +54,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         Record record = newsList.get(position);
 
-
-        //System.out.println("lll lolzz: "+record.getTitle());
         holder.titleTxtView.setText(record.getTitle());
-        //holder.note.setText(note.getNote());
-
-        // Displaying dot from HTML character code
-        //holder.dot.setText(Html.fromHtml("&#8226;"));
-
-        // Formatting and displaying timestamp
-        //holder.timestamp.setText(formatDate(note.getTimestamp()));
 
         holder.rowLayout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                //selectedNews = itemListFiltered.get(position).getName();
-                //System.out.println("selectedNews ppp: "+selectedNews);
-                Intent detailsIntent = new Intent(v.getContext(), DetailsActivity.class);
-                detailsIntent.putExtra("title", newsList.get(position).getTitle());
-                detailsIntent.putExtra("content", newsList.get(position).getContent());
-                detailsIntent.putExtra("urlImage", newsList.get(position).getImage());
-
-                detailsIntent.putExtra("author", newsList.get(position).getAuthor());
-                detailsIntent.putExtra("description", newsList.get(position).getDescription());
-                detailsIntent.putExtra("url", newsList.get(position).getUrl());
-
-                v.getContext().startActivity(detailsIntent);
+                DetailsRouter.startActivity(v.getContext(),
+                        newsList.get(position).getTitle(),
+                        newsList.get(position).getContent(),
+                        newsList.get(position).getImage(),
+                        newsList.get(position).getAuthor(),
+                        newsList.get(position).getDescription(),
+                        newsList.get(position).getUrl()
+                        );
             }
         });
     }
@@ -98,16 +79,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
     public void removeItem(int position) {
         newsList.remove(position);
-        // notify the item removed by position
-        // to perform recycler view delete animations
-        // NOTE: don't call notifyDataSetChanged()
         notifyDataSetChanged();
         notifyItemRemoved(position);
     }
 
     public void restoreItem(Record record, int position) {
         newsList.add(position, record);
-        // notify item added by position
         notifyDataSetChanged();
         notifyItemInserted(position);
     }

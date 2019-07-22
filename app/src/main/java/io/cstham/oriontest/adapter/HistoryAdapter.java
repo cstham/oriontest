@@ -15,6 +15,7 @@ import java.util.List;
 import io.cstham.oriontest.presenter.DetailsHistoryActivity;
 import io.cstham.oriontest.R;
 import io.cstham.oriontest.entity.History;
+import io.cstham.oriontest.router.DetailsHistoryRouter;
 
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
@@ -56,33 +57,22 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         History history = historyList.get(position);
-        
-        //System.out.println("lll lolzz: "+record.getTitle());
+
         holder.titleTxtView.setText(history.getTitle());
-        //holder.note.setText(note.getNote());
 
-        // Displaying dot from HTML character code
         holder.dot.setText(Html.fromHtml("&#8226;"));
-
-        // Formatting and displaying timestamp
-        //holder.timestamp.setText(formatDate(note.getTimestamp()));
 
         holder.rowLayout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                //selectedNews = itemListFiltered.get(position).getName();
-                //System.out.println("selectedNews ppp: "+selectedNews);
-                Intent detailsHistoryIntent = new Intent(v.getContext(), DetailsHistoryActivity.class);
-                detailsHistoryIntent.putExtra("title", historyList.get(position).getTitle());
-                detailsHistoryIntent.putExtra("content", historyList.get(position).getContent());
-                detailsHistoryIntent.putExtra("urlImage", historyList.get(position).getImage());
-
-                detailsHistoryIntent.putExtra("author", historyList.get(position).getAuthor());
-                detailsHistoryIntent.putExtra("description", historyList.get(position).getDescription());
-                detailsHistoryIntent.putExtra("url", historyList.get(position).getUrl());
-
-                v.getContext().startActivity(detailsHistoryIntent);
+                DetailsHistoryRouter.startActivity(v.getContext(),
+                        historyList.get(position).getTitle(),
+                        historyList.get(position).getContent(),
+                        historyList.get(position).getImage(),
+                        historyList.get(position).getAuthor(),
+                        historyList.get(position).getDescription(),
+                        historyList.get(position).getUrl());
             }
         });
 
@@ -96,16 +86,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
     public void removeItem(int position) {
         historyList.remove(position);
-        // notify the item removed by position
-        // to perform recycler view delete animations
-        // NOTE: don't call notifyDataSetChanged()
         notifyDataSetChanged();
         notifyItemRemoved(position);
     }
 
     public void restoreItem(History history, int position) {
         historyList.add(position, history);
-        // notify item added by position
         notifyDataSetChanged();
         notifyItemInserted(position);
     }

@@ -28,7 +28,6 @@ public class TextBox {
             @Override
             public void onClick(View v) {
 
-                //System.out.println("clicked dismiss button lol:");
                 original_layout.removeView(dynamicMessageView);
 
             }
@@ -59,8 +58,6 @@ public class TextBox {
         dismissBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //System.out.println("clicked dismiss button lol:");
                 original_layout.removeView(dynamicMessageView);
 
             }

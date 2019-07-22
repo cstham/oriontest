@@ -27,23 +27,15 @@ public class HistoryDatabaseHelper extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        // create tables
-        //db.execSQL(Record.CREATE_TABLE);
-
         db.execSQL(History.CREATE_TABLE);
-
-        //System.out.println("ever called: lolz");
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        //db.execSQL("DROP TABLE IF EXISTS " + Record.TABLE_NAME);
-
         db.execSQL("DROP TABLE IF EXISTS " + History.TABLE_NAME);
-        // Create tables again
+
         onCreate(db);
     }
 

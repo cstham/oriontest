@@ -19,68 +19,40 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-//import com.wang.avi.AVLoadingIndicatorView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.cstham.oriontest.adapter.NewsAdapter;
-//import io.cstham.oriontest.AppGlobal.Config;
 import io.cstham.oriontest.utils.MyDividerItemDecoration;
 import io.cstham.oriontest.utils.NetworkConnectionCheck;
 import io.cstham.oriontest.R;
 import io.cstham.oriontest.utils.TextBox;
 import io.cstham.oriontest.utils.RecyclerItemTouchHelper;
 import io.cstham.oriontest.database.DatabaseHelper;
-//import io.cstham.oriontest.entity.News;
 import io.cstham.oriontest.entity.Record;
-
-;
-
 
 @SuppressLint("ValidFragment")
 public class MainFragment extends Fragment implements SearchBarResponse, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
     private CoordinatorLayout coordinatorLayout;
-    //private AVLoadingIndicatorView avi;
-
-    //private List<News> newsList = new ArrayList<>();
     private List<Record> newsList = new ArrayList<>();
-
     TextBox textBox = new TextBox();
-
     Thread internetThread;
     Handler internetCheckHandler = new Handler();
-
-    private ListView lv;
-    //News news;
-
     NewsAdapter mainAdapter;
     SwipeRefreshLayout pullToRefresh;
-
     private int pageStart = 1;
-
     private ProgressBar progressBar;
-
     boolean isPulltoRefresh = false;
-
     boolean isOnline;
-
     private RecyclerView recyclerView;
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback;
-
-    //DBHelper mydb;
-    //SQLiteDatabase dbInstance;
-
     private DatabaseHelper db;
 
     @Override
@@ -94,48 +66,27 @@ public class MainFragment extends Fragment implements SearchBarResponse, Recycle
 
         View v = inflater.inflate(R.layout.fragment_main, container, false);
 
-
-        //=======
-
         db = new DatabaseHelper(getContext());
 
-
-
-
-        //==============
-
         coordinatorLayout = v.findViewById(R.id.coordinatorLayout);
-
-        //avi = v.findViewById(R.id.avi);
-
         progressBar = v.findViewById(R.id.progressBar_cyclic);
-
         pullToRefresh = v.findViewById(R.id.swiperefresh);
 
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-
-
-                //pullToRefresh.setRefreshing(false);
-
                 pullToRefresh.post(new Runnable() {
                                              @Override
                                              public void run() {
                                                  isPulltoRefresh = true;
                                                  pageStart = 1;
                                                  newsList = new ArrayList<>();
-                                                 //newsList.clear();
                                                  db.deleteAllRecords();
                                                  getNews("1");
-
                                                  pullToRefresh.setRefreshing(true);
                                              }
                                          }
                 );
-
-
             }
         });
 
@@ -151,16 +102,12 @@ public class MainFragment extends Fragment implements SearchBarResponse, Recycle
                     progressBar.setVisibility(View.VISIBLE);
                     pageStart ++;
                     getNews(String.valueOf(pageStart));
-
                     //Toast.makeText(getActivity(), String.valueOf(pageStart), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-
-
         itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
-
         //==========================================================================================
         if(NetworkConnectionCheck.isNetworkConnected(getContext())){
             isOnline = true;
@@ -176,8 +123,6 @@ public class MainFragment extends Fragment implements SearchBarResponse, Recycle
 
         //==========================================================================================
         SearchBarFragment.searchBarResponse = this;
-
-
         return v;
     }
 
@@ -235,7 +180,6 @@ public class MainFragment extends Fragment implements SearchBarResponse, Recycle
 
         if (isPulltoRefresh){
             progressBar.setVisibility(View.INVISIBLE);
-
         }
 
         AndroidNetworking.get("https://newsapi.org/v2/top-headlines")

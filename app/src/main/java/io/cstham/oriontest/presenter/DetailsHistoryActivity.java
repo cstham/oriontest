@@ -23,8 +23,6 @@ public class DetailsHistoryActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         //==========================================================================================
-        //isDetailsHistoryActivity = false;
-
         TextView titleTxtView = findViewById(R.id.activity_details__title);
         TextView contentTxtView = findViewById(R.id.activity_details__content);
         ImageView photoImgView = findViewById(R.id.activity_details__urlImage);
@@ -32,7 +30,6 @@ public class DetailsHistoryActivity extends FragmentActivity {
 
         titleTxtView.setText(getIntent().getStringExtra("title"));
         contentTxtView.setText(getIntent().getStringExtra("content"));
-
         loadImage(photoImgView, getIntent().getStringExtra("urlImage"));
 
     }

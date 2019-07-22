@@ -23,7 +23,6 @@ public class DetailsActivity extends FragmentActivity {
 
     private HistoryDatabaseHelper db;
     SharedPreferences prefs;
-    //private List<History> historyList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +52,6 @@ public class DetailsActivity extends FragmentActivity {
                     getIntent().getStringExtra("urlImage"),
                     getIntent().getStringExtra("content"));
 
-            //historyList.add(0, db.getHistory(id));
-
             prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor editor = prefs.edit();
             editor.putLong("history_id", id);
@@ -62,17 +59,11 @@ public class DetailsActivity extends FragmentActivity {
 
         }
         catch (SQLiteException e){
-
             if (e.getMessage().contains("no such table")){
-
-                System.out.println("no such table lolzz: ");
+                System.out.println("No such table");
             }
         }
-        //History history = db.getHistory(id);
 
-//        if (history != null) {
-//            historyList.add(history);
-//        }
 
 
 

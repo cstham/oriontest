@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -18,66 +17,36 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.cstham.oriontest.adapter.HistoryAdapter;
 import io.cstham.oriontest.R;
 import io.cstham.oriontest.utils.MyDividerItemDecoration;
-import io.cstham.oriontest.utils.TextBox;
 import io.cstham.oriontest.utils.HistoryRecyclerItemTouchHelper;
 import io.cstham.oriontest.database.HistoryDatabaseHelper;
 import io.cstham.oriontest.entity.History;
-//import io.cstham.oriontest.entity.News;
-
 import static io.cstham.oriontest.presenter.DetailsHistoryActivity.isDetailsHistoryActivity;
-
-;
-
 
 @SuppressLint("ValidFragment")
 public class HistoryFragment extends Fragment implements HistoryRecyclerItemTouchHelper.HistoryRecyclerItemTouchHelperListener {
 
     private CoordinatorLayout coordinatorLayout;
 
-    //private List<News> newsList = new ArrayList<>();
-    //private List<Record> newsList = new ArrayList<>();
-
-    TextBox textBox = new TextBox();
-
-    Thread internetThread;
-    Handler internetCheckHandler = new Handler();
-
-    //private ListView lv;
-    //News news;
-
-    //NewsAdapter mainAdapter;
     HistoryAdapter historyAdapter;
-    //SwipeRefreshLayout pullToRefresh;
-
-    private int pageStart = 1;
-
-    private ProgressBar progressBar;
-
-    //boolean isPulltoRefresh = false;
-
-    //boolean isOnline;
 
     private RecyclerView recyclerView;
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback;
 
-    //DBHelper mydb;
-    //SQLiteDatabase dbInstance;
 
     private HistoryDatabaseHelper db;
     public List<History> historyList = new ArrayList<>();
 
     private SharedPreferences prefs;
     boolean isStopped = false;
+
+    private ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,9 +81,6 @@ public class HistoryFragment extends Fragment implements HistoryRecyclerItemTouc
         historyAdapter.notifyDataSetChanged();
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
-
-
-
         return v;
     }
 
@@ -127,32 +93,15 @@ public class HistoryFragment extends Fragment implements HistoryRecyclerItemTouc
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         long history_id = prefs.getLong("history_id",0);
 
-        //System.out.println("historyID lolz: "+history_id);
-        //isDetailsHistoryActivity = false;
-
         try{
-
-
             if ((isStopped) && (!isDetailsHistoryActivity)){
                 historyList.add(0, db.getHistory(history_id));
             }
-
         }
         catch (SQLiteException e){
 
         }
 
-
-        for (int i=0; i< historyList.size(); i++){
-            History row = historyList.get(i);
-            System.out.println(i+"): lolz    " +row.getTitle());
-        }
-
-        //historyAdapter = new HistoryAdapter(getContext(), historyList);
-        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        //recyclerView.setLayoutManager(mLayoutManager);
-        //recyclerView.setItemAnimator(new DefaultItemAnimator());
-        //recyclerView.setAdapter(historyAdapter);
         historyAdapter.notifyDataSetChanged();
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
@@ -166,11 +115,6 @@ public class HistoryFragment extends Fragment implements HistoryRecyclerItemTouc
     public void onStop() {
         super.onStop();
         isStopped = true;
-    }
-
-    private void setupAdapter(){
-
-
     }
 
 
@@ -206,44 +150,6 @@ public class HistoryFragment extends Fragment implements HistoryRecyclerItemTouc
         }
     }
 
-    /*
-    public void getOfflineNews(){
-
-        progressBar.setVisibility(View.INVISIBLE);
-        newsList.addAll(db.getAllRecords());
-
-        setupAdapter();
-
-    }
-
-*/
-
-    public void getNews(String pageNo) {
-/*
-        System.out.println("pageNo ppp: "+pageNo);
-            //insert into DB
-        long id = db.insertRecord(title, author, description, url, urlToImage, content);
-
-        Record record = db.getRecord(id);
-
-        if (record != null) {
-            newsList.add(record);
-        }
-*/
-    }
-
-    /*
-    private void setupAdapter(){
-        mainAdapter = new NewsAdapter(getContext(), newsList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mainAdapter);
-        mainAdapter.notifyDataSetChanged();
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-    }
-
-*/
 }
 
 
