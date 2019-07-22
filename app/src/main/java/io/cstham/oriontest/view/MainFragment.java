@@ -37,6 +37,11 @@ import io.cstham.oriontest.utils.RecyclerItemTouchHelper;
 import io.cstham.oriontest.database.DatabaseHelper;
 import io.cstham.oriontest.entity.Record;
 
+import static io.cstham.oriontest.api.ApiConfig.NEWS_API_BASE;
+import static io.cstham.oriontest.api.ApiConfig.NEWS_API_CATEGORY;
+import static io.cstham.oriontest.api.ApiConfig.NEWS_API_COUNTRY;
+import static io.cstham.oriontest.api.ApiConfig.NEWS_API_KEY;
+
 @SuppressLint("ValidFragment")
 public class MainFragment extends Fragment implements SearchBarResponse, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
@@ -182,10 +187,10 @@ public class MainFragment extends Fragment implements SearchBarResponse, Recycle
             progressBar.setVisibility(View.INVISIBLE);
         }
 
-        AndroidNetworking.get("https://newsapi.org/v2/top-headlines")
-                .addQueryParameter("country", "us")
-                .addQueryParameter("category", "business")
-                .addQueryParameter("apiKey", "c4b513987a534ffd893850dbb575224f")
+        AndroidNetworking.get(NEWS_API_BASE)
+                .addQueryParameter("country", NEWS_API_COUNTRY)
+                .addQueryParameter("category", NEWS_API_CATEGORY)
+                .addQueryParameter("apiKey", NEWS_API_KEY)
                 .addQueryParameter("page", pageNo)
                 .setPriority(Priority.HIGH)
                 .build()
