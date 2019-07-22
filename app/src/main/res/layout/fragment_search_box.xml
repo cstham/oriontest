@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@drawable/bluegradient"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:layout_height="?attr/actionBarSize"
+    android:elevation="0dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        tools:ignore="ContentDescription"
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/ic_search" />
+
+    <EditText
+        android:background="@drawable/round_border"
+        android:id="@+id/et_search_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/refresh"
+        android:layout_toEndOf="@id/iv_back"
+        android:hint="@string/text_search_location"
+        android:textSize="15sp"
+        android:maxLines="1"
+        android:textColor="@color/mapboxWhite"
+        android:textColorHint="@color/mapboxWhite"
+        android:textCursorDrawable="@drawable/ic_search_cursor"
+        android:theme="@style/SearchEditText" />
+
+
+    <ImageView
+        android:id="@+id/refresh"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:src="@mipmap/ic_refresh"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/clear"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="68dp"
+        android:src="@drawable/ic_clear"
+        android:tint="@color/mapboxWhite"
+        android:visibility="visible" />
+
+
+
+</RelativeLayout>
